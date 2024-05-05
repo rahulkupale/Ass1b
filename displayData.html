@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display User Data</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5 mb-4 text-center">User Data</h2>
+        <div id="userData" class="list-group">
+            <script>
+                let usersData = JSON.parse(localStorage.getItem('usersData'));
+                if (usersData && usersData.length > 0) {
+                    usersData.forEach(function(user) {
+                        let interests = user.interests && user.interests.length > 0 ? user.interests.join(', ') : 'None';
+                        let userDataHTML = `
+                            <div class="list-group-item">
+                                <p class="mb-1">Username: <strong>${user.username}</strong></p>
+                                <p class="mb-1">Email: <strong>${user.email}</strong></p>
+                                <p class="mb-1">Age: <strong>${user.age}</strong></p>
+                                <p class="mb-1">Gender: <strong>${user.gender}</strong></p>
+                                <p class="mb-1">Country: <strong>${user.country}</strong></p>
+                            </div>
+                        `;
+                        document.getElementById('userData').innerHTML += userDataHTML;
+                    });
+                } else {
+                    document.getElementById('userData').innerHTML = '<div class="alert alert-info">No user data available.</div>';
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
